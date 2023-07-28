@@ -3,18 +3,19 @@ FROM python:3.9.17
 # set working directory
 WORKDIR /app
 
-# copying api backend resources
-COPY /api .
+# copying necessary resources
+COPY /app .
+COPY /sms.py .
+
+# copy the serialized classifier
+COPY /sms_spam_clf.pkl .
 
 # # install dependencies with pip
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY /sms_spam_clf.pkl .
-COPY /sms.py .
-
 # expose flask default port
-EXPOSE 5000
+EXPOSE 8501
 
-# run flask app
-CMD [ "flask", "--host", "0.0.0.0", "--port", "5000", "run" ]
+# run streamlit app
+CMD [ "streamlit", "run", "Home.py" ]

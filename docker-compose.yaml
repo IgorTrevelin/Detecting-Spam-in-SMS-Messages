@@ -1,10 +1,9 @@
 services:
   api:
-    build:
-      context: .
-      dockerfile: "Dockerfile-api"
+    container_name: sms-detector
+    build: .
     ports:
-      - "5000:5000"
+      - "8501:8501"
     restart: on-failure
     volumes:
       - ./storage:/app/storage
